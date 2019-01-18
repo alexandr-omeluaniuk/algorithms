@@ -14,21 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ss.algorithms;
-
-import ss.algorithms.constants.Algorithm;
+package ss.algorithms.core;
 
 /**
- *
+ * Algorithm implementation.
  * @author ss
  */
-public class Main {
+public interface AlgorithmImplementation {
     /**
-     * @param args the command line arguments
+     * Run algorithm using embedded test data.
      */
-    public static void main(String[] args) throws Exception {
-        Algorithm algorithm = /**Algorithm.valueOf(args[0])**/ Algorithm.SORT_INSERTION;
-        algorithm.getImplementation()
-                .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]).run();
-    }
+    void run();
 }

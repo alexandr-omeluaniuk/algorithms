@@ -16,16 +16,19 @@
  */
 package ss.algorithms.realm.sorting;
 
+import ss.algorithms.core.AlgorithmImplementation;
+
 /**
  * Sort algorithm.
  * @author ss
  */
-public interface SortAlgorithm {
+public interface SortAlgorithm extends AlgorithmImplementation {
     /**
      * Sort array of comparable items.
      * @param a array of comparable items.
+     * @param tracing trace output.
      */
-    void sort(Comparable[] a);
+    void sort(Comparable[] a, boolean tracing);
     /**
      * Check if v less than w;
      * @param v the first comparable item.
