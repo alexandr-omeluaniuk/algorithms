@@ -16,8 +16,10 @@
  */
 package ss.algorithms.realm.sorting.impl;
 
-import java.util.UUID;
+import java.util.Optional;
+import java.util.function.Function;
 import ss.algorithms.realm.sorting.BaseSorting;
+import ss.algorithms.realm.sorting.SortStatistic;
 
 /**
  * Sort using insertion.
@@ -25,20 +27,40 @@ import ss.algorithms.realm.sorting.BaseSorting;
  */
 public class SortInsertion extends BaseSorting {
     @Override
-    public void sort(Comparable[] a, boolean tracing) {
+    public SortStatistic sort(Comparable[] a, boolean tracing) {
         int n = a.length;
+        Function<Integer, Integer> comparisionsAvg =
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2);
+        Function<Integer, Integer> comparisionsBest =
+                (arrayLength) -> arrayLength - 1;
+        Function<Integer, Integer> comparisionsWorst =
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2));
+        Function<Integer, Integer> exchangesAvg = (arrayLength) -> arrayLength;
+        Function<Integer, Integer> exchangesBest = (arrayLength) -> 0;
+        Function<Integer, Integer> exchangesWorst =
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2));
+        SortStatistic statistic = new SortStatistic("avarage N^2/2, the best N-1, the worst N^2",
+                comparisionsAvg, comparisionsBest, comparisionsWorst,
+                "average N^2/2, the best 0, the worst N^2",
+                exchangesAvg, exchangesBest, exchangesWorst);
+        Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
             printTraceHead(n, new String[] {"i", "j"});
         }
-    }
-    @Override
-    public void run() {
-        String random = UUID.randomUUID().toString();
-        Comparable[] a = random.split("");
-        System.out.println("Source array:");
-        outputArray(a);
-        sort(a, true);
-        System.out.println("Sorted array:");
-        outputArray(a);
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0 && less(a[j], a[j -1], optionalStatistic); j--) {
+                exchange(a, j, j-1, optionalStatistic);
+                if (tracing) {
+                    final int index = j;
+                    Function<Integer, Boolean> func = (k) -> k == index;
+                    printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func);
+                }
+            }
+        }
+        if (tracing) {
+            System.out.println("");
+        }
+        assert(isSorted(a));
+        return statistic;
     }
 }

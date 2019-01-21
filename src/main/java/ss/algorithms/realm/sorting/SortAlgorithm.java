@@ -16,6 +16,7 @@
  */
 package ss.algorithms.realm.sorting;
 
+import java.util.Optional;
 import ss.algorithms.core.AlgorithmImplementation;
 
 /**
@@ -27,22 +28,25 @@ public interface SortAlgorithm extends AlgorithmImplementation {
      * Sort array of comparable items.
      * @param a array of comparable items.
      * @param tracing trace output.
+     * @return sort statistic.
      */
-    void sort(Comparable[] a, boolean tracing);
+    SortStatistic sort(Comparable[] a, boolean tracing);
     /**
      * Check if v less than w;
      * @param v the first comparable item.
      * @param w the second comparable item.
+     * @param statistic sort statistic.
      * @return true if v less than w.
      */
-    boolean less(Comparable v, Comparable w);
+    boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic);
     /**
      * Make items exchange into array.
      * @param a array of comparable items.
      * @param i index of the first exchangeable item.
      * @param j index of the second exchangeable item.
+     * @param statistic sort statistic.
      */
-    void exchange(Comparable[] a, int i, int j);
+    void exchange(Comparable[] a, int i, int j, Optional<SortStatistic> statistic);
     /**
      * Output an array of comparable items.
      * @param a array of comparable items.

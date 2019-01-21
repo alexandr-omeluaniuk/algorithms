@@ -16,7 +16,9 @@
  */
 package ss.algorithms.realm.sorting;
 
+import java.util.Optional;
 import java.util.function.Function;
+import ss.algorithms.core.RandomGenerator;
 
 /**
  * Sorting common methods.
@@ -30,11 +32,17 @@ public abstract class BaseSorting implements SortAlgorithm {
     /** Console color: nornal. */
     private static final String CONSOLE_COLOR_NORMAL = "\033[0m";
     @Override
-    public boolean less(Comparable v, Comparable w) {
+    public boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic) {
+        if (statistic.isPresent()) {
+            statistic.get().incrementComparisons();
+        }
         return v.compareTo(w) < 0;
     }
     @Override
-    public void exchange(Comparable[] a, int i, int j) {
+    public void exchange(Comparable[] a, int i, int j, Optional<SortStatistic> statistic) {
+        if (statistic.isPresent()) {
+            statistic.get().incrementExchanges();
+        }
         Comparable t = a[i];
         a[i] = a[j];
         a[j] = t;
@@ -42,18 +50,29 @@ public abstract class BaseSorting implements SortAlgorithm {
     @Override
     public void outputArray(Comparable[] a) {
         for (Comparable item : a) {
-            System.out.print(item);
+            System.out.print(item + " ");
         }
         System.out.println("");
     }
     @Override
     public boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++) {
-            if (less(a[i], a[i = 1])) {
+            if (less(a[i], a[i = 1], null)) {
                 return false;
             }
         }
         return true;
+    }
+    @Override
+    public void run() {
+        Comparable[] a = RandomGenerator.randomArrayOfNumbers(32);
+        System.out.println("Source array:");
+        outputArray(a);
+        SortStatistic statistic = sort(a, true);
+        System.out.println("Sorted array:");
+        outputArray(a);
+        System.out.println("");
+        statistic.print(a.length);
     }
 // ===================================== PROTECTED ================================================
     /**
@@ -71,7 +90,8 @@ public abstract class BaseSorting implements SortAlgorithm {
                     ? SEPARATOR.repeat(minLength - label.length()) + label : label)
                     .append(SEPARATOR);
         }
-        int width = String.valueOf(n).length();
+        sb.append(" |");
+        int width = String.valueOf(n).length() + 1;
         for (int i = 0; i < n; i++) {
             sb.append(SEPARATOR.repeat(width - String.valueOf(i).length())).append(i)
                     .append(SEPARATOR);
@@ -79,19 +99,27 @@ public abstract class BaseSorting implements SortAlgorithm {
         System.out.println(sb);
         System.out.println("-".repeat(sb.length()));
     }
-    protected void printTraceState(Comparable[] a, String[] values, int j,
+    /**
+     * Print intermediate array state.
+     * @param a array.
+     * @param values values for the first 'info' columns, depends on header configuration.
+     * @param highlightCondition highlight cell condition.
+     */
+    protected void printTraceState(Comparable[] a, String[] values,
             Function<Integer, Boolean> highlightCondition) {
+        int n = a.length;
         StringBuilder sb = new StringBuilder();
         for (String value : values) {
-            int minLength = value.length() > String.valueOf(a.length).length()
-                    ? value.length() : String.valueOf(a.length).length();
+            int minLength = value.length() > String.valueOf(n).length()
+                    ? value.length() : String.valueOf(n).length();
             sb.append(minLength > value.length()
                     ? SEPARATOR.repeat(minLength - value.length()) + value : value)
                     .append(SEPARATOR);
         }
-        int repeatSeparator = String.valueOf(a.length).length() - 1;
-        for (int k = 0; k < a.length; k++) {
-            sb.append(SEPARATOR.repeat(repeatSeparator))
+        sb.append(" |");
+        int width = String.valueOf(n).length() + 1;
+        for (int k = 0; k < n; k++) {
+            sb.append(SEPARATOR.repeat(width - a[k].toString().length()))
                     .append(highlightCondition.apply(k) ? CONSOLE_COLOR_GREEN : "")
                     .append(a[k]).append(highlightCondition.apply(k) ? CONSOLE_COLOR_NORMAL : "")
                     .append(SEPARATOR);

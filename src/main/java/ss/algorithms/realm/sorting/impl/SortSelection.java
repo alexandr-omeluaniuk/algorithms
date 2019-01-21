@@ -16,9 +16,10 @@
  */
 package ss.algorithms.realm.sorting.impl;
 
-import java.util.UUID;
+import java.util.Optional;
 import java.util.function.Function;
 import ss.algorithms.realm.sorting.BaseSorting;
+import ss.algorithms.realm.sorting.SortStatistic;
 
 /**
  * Sort using selection.
@@ -26,38 +27,37 @@ import ss.algorithms.realm.sorting.BaseSorting;
  */
 public class SortSelection extends BaseSorting {
     @Override
-    public void sort(Comparable[] a, boolean tracing) {
+    public SortStatistic sort(Comparable[] a, boolean tracing) {
         int n = a.length;
+        Function<Integer, Integer> comparisionsAlways =
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2);
+        Function<Integer, Integer> exchangesAlways = (arrayLength) -> arrayLength;
+        SortStatistic statistic = new SortStatistic("always N^2/2",
+                comparisionsAlways, comparisionsAlways, comparisionsAlways,
+                "always N",
+                exchangesAlways, exchangesAlways, exchangesAlways);
+        Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
             printTraceHead(n, new String[] {"i", "min"});
         }
         for (int i = 0; i < n; i++) {
             int min = i;
             for (int j = i + 1; j < n; j++) {
-                if (less(a[j], a[min])) {
+                if (less(a[j], a[min], optionalStatistic)) {
                     min = j;
                 }
             }
-            exchange(a, i, min);
+            exchange(a, i, min, optionalStatistic);
             if (tracing) {
                 final int index = i;
                 Function<Integer, Boolean> func = (k) -> k == index;
-                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, i, func);
+                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func);
             }
         }
         if (tracing) {
-            System.err.println("");
+            System.out.println("");
         }
         assert(isSorted(a));
-    }
-    @Override
-    public void run() {
-        String random = UUID.randomUUID().toString();
-        Comparable[] a = random.split("");
-        System.out.println("Source array:");
-        outputArray(a);
-        sort(a, true);
-        System.out.println("Sorted array:");
-        outputArray(a);
+        return statistic;
     }
 }
