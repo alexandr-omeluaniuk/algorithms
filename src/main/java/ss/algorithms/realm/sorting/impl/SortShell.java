@@ -27,7 +27,7 @@ import ss.algorithms.realm.sorting.SortStatistic;
  */
 public class SortShell extends BaseSorting {
     @Override
-    public SortStatistic sort(Comparable[] a, boolean tracing) {
+    public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
         int n = a.length;
         SortStatistic statistic = new SortStatistic("not defined",
                 null, null, null,
@@ -35,7 +35,7 @@ public class SortShell extends BaseSorting {
                 null, null, null);
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
-            printTraceHead(n, new String[] {"i", "j", "h"});
+            printTraceHead(n, new String[] {"i", "j", "h"}, isGraphicMode);
         }
         int h = 1;
         while (h < n / 3) {
@@ -50,7 +50,7 @@ public class SortShell extends BaseSorting {
                         final int index2 = j - h;
                         Function<Integer, Boolean> func = (k) -> k == index || k == index2;
                         printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j),
-                            String.valueOf(h)}, func);
+                            String.valueOf(h)}, func, isGraphicMode);
                     }
                 }
             }

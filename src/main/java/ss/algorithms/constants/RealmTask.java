@@ -26,8 +26,9 @@ import ss.algorithms.core.Task;
 public enum RealmTask {
     /** Sort using a single algorithm. */
     SORT_ARRAY(
-            new RealmTaskArg[] {RealmTaskArg.ALGORITHM, RealmTaskArg.ARRAY_LENGTH},
-            new boolean[] {true, true},
+            new RealmTaskArg[] {RealmTaskArg.ALGORITHM, RealmTaskArg.ARRAY_LENGTH,
+                RealmTaskArg.ENABLE_TRACING, RealmTaskArg.GRAPHIC_MODE},
+            new boolean[] {true, true, false, false},
             "Sort an array using a certain algorithm",
             SortArrayTask.class
     );

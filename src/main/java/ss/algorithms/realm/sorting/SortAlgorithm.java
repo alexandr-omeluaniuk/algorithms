@@ -27,9 +27,10 @@ public interface SortAlgorithm {
      * Sort array of comparable items.
      * @param a array of comparable items.
      * @param tracing trace output.
+     * @param isGraphicMode enable graphic mode for tracing.
      * @return sort statistic.
      */
-    SortStatistic sort(Comparable[] a, boolean tracing);
+    SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode);
     /**
      * Check if v less than w;
      * @param v the first comparable item.

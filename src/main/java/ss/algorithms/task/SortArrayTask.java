@@ -33,12 +33,16 @@ public class SortArrayTask implements Task {
     public void run(Map<RealmTaskArg, Object> args) throws Exception {
         Integer arrayLength = (Integer) args.get(RealmTaskArg.ARRAY_LENGTH);
         Algorithm algorithm = (Algorithm) args.get(RealmTaskArg.ALGORITHM);
+        Boolean enableTracing = (Boolean) args.get(RealmTaskArg.ENABLE_TRACING);
+        Boolean isGraphicMode = (Boolean) args.get(RealmTaskArg.GRAPHIC_MODE);
+        enableTracing = enableTracing == null ? Boolean.FALSE : enableTracing;
+        isGraphicMode = isGraphicMode == null ? Boolean.FALSE : isGraphicMode;
         Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
         System.out.println("Source array:");
         outputArray(a);
         SortAlgorithm sortAlgorithm = (SortAlgorithm) algorithm.getImplementation()
                 .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
-        SortStatistic statistic = sortAlgorithm.sort(a, true);
+        SortStatistic statistic = sortAlgorithm.sort(a, enableTracing, isGraphicMode);
         System.out.println("Sorted array:");
         outputArray(a);
         System.out.println("");

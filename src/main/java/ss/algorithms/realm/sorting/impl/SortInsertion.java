@@ -27,7 +27,7 @@ import ss.algorithms.realm.sorting.SortStatistic;
  */
 public class SortInsertion extends BaseSorting {
     @Override
-    public SortStatistic sort(Comparable[] a, boolean tracing) {
+    public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
         int n = a.length;
         Function<Integer, Integer> comparisionsAvg =
                 (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2);
@@ -45,7 +45,7 @@ public class SortInsertion extends BaseSorting {
                 exchangesAvg, exchangesBest, exchangesWorst);
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
-            printTraceHead(n, new String[] {"i", "j"});
+            printTraceHead(n, new String[] {"i", "j"}, isGraphicMode);
         }
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0 && less(a[j], a[j -1], optionalStatistic); j--) {
@@ -54,7 +54,8 @@ public class SortInsertion extends BaseSorting {
                     final int index = j;
                     final int index2 = j-1;
                     Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                    printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func);
+                    printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func,
+                            isGraphicMode);
                 }
             }
         }

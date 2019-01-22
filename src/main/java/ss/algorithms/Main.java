@@ -38,7 +38,8 @@ public class Main {
         if (args == null || args.length == 0) {
             //Help.printHelp();
             args = new String[] {
-                "task=sort_array", "-algorithm=sort_shell", "-array_length=32"
+                "task=sort_array", "-algorithm=sort_shell", "-array_length=32",
+                "-enable_tracing=true", "-graphic_mode=true"
             };
             runTask(args);
         } else {
@@ -71,6 +72,8 @@ public class Main {
                                         valCast = Integer.valueOf(value);
                                     } else if (Algorithm.class.equals(rta.getType())) {
                                         valCast = Algorithm.valueOf(value.toUpperCase());
+                                    } else if (Boolean.class.equals(rta.getType())) {
+                                        valCast = Boolean.valueOf(value);
                                     } else {
                                         valCast = value;
                                     }

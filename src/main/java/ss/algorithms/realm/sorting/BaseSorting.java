@@ -30,6 +30,10 @@ public abstract class BaseSorting implements SortAlgorithm {
     private static final String CONSOLE_COLOR_GREEN = "\u001B[32m";
     /** Console color: nornal. */
     private static final String CONSOLE_COLOR_NORMAL = "\033[0m";
+    /** Graphic symbols. */
+    private static final char[] SYMBOLS = new char[] {
+        0x2581, 0x2582, 0x2583, 0x2584, 0x2585, 0x2586, 0x2587, 0x2588
+    };
     @Override
     public boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic) {
         if (statistic.isPresent()) {
@@ -60,8 +64,9 @@ public abstract class BaseSorting implements SortAlgorithm {
      * Print trace head.
      * @param n array length.
      * @param labels first columns labels.
+     * @param isGraphicMode enable graphic mode for tracing.
      */
-    protected void printTraceHead(int n, String[] labels) {
+    protected void printTraceHead(int n, String[] labels, boolean isGraphicMode) {
         System.out.println("");
         StringBuilder sb = new StringBuilder();
         for (String label : labels) {
@@ -71,23 +76,25 @@ public abstract class BaseSorting implements SortAlgorithm {
                     ? SEPARATOR.repeat(minLength - label.length()) + label : label)
                     .append(SEPARATOR);
         }
-        sb.append("|");
-        int width = String.valueOf(n).length() + 1;
+        sb.append(" |");
+        int labelsWidth = sb.length();
+        int width = isGraphicMode ? 1 : String.valueOf(n).length() + 1;
         for (int i = 0; i < n; i++) {
-            sb.append(SEPARATOR.repeat(width - String.valueOf(i).length())).append(i)
-                    .append(SEPARATOR);
+            sb.append(isGraphicMode ? "" : SEPARATOR.repeat(width - String.valueOf(i).length()))
+                    .append(isGraphicMode ? "" : i).append(SEPARATOR);
         }
         System.out.println(sb);
-        System.out.println("-".repeat(sb.length()));
+        System.out.println("-".repeat(isGraphicMode ? labelsWidth + n : sb.length()));
     }
     /**
      * Print intermediate array state.
      * @param a array.
      * @param values values for the first 'info' columns, depends on header configuration.
      * @param highlightCondition highlight cell condition.
+     * @param isGraphicMode enable graphic mode.
      */
     protected void printTraceState(Comparable[] a, String[] values,
-            Function<Integer, Boolean> highlightCondition) {
+            Function<Integer, Boolean> highlightCondition, boolean isGraphicMode) {
         int n = a.length;
         StringBuilder sb = new StringBuilder();
         for (String value : values) {
@@ -98,11 +105,29 @@ public abstract class BaseSorting implements SortAlgorithm {
                     .append(SEPARATOR);
         }
         sb.append(" |");
-        int width = String.valueOf(n).length() + 1;
+        int width = isGraphicMode ? 0 : String.valueOf(n).length() + 1;
+        int max = 0;
+        for (Comparable item : a) {
+            if (item instanceof Integer) {
+                Integer itemI = (Integer) item;
+                if (itemI > max) {
+                    max = itemI;
+                }
+            }
+        }
         for (int k = 0; k < n; k++) {
-            sb.append(SEPARATOR.repeat(width - a[k].toString().length()))
+            Object value;
+            if (isGraphicMode && max > 0) {
+                double tmp = Double.valueOf(a[k].toString()) / max;
+                int index = (int) Math.ceil(tmp * (SYMBOLS.length - 1) / max * 100);
+                value = String.valueOf(SYMBOLS[index - 1]);
+            } else {
+                value = a[k];
+            }
+            sb.append(SEPARATOR.repeat(isGraphicMode ? width : width - a[k].toString().length()))
                     .append(highlightCondition.apply(k) ? CONSOLE_COLOR_GREEN : "")
-                    .append(a[k]).append(highlightCondition.apply(k) ? CONSOLE_COLOR_NORMAL : "")
+                    .append(value)
+                    .append(highlightCondition.apply(k) ? CONSOLE_COLOR_NORMAL : "")
                     .append(SEPARATOR);
         }
         System.out.println(sb);

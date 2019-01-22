@@ -24,7 +24,11 @@ public enum RealmTaskArg {
     /** Algorithm. */
     ALGORITHM(Algorithm.class, "Algorithm name"),
     /** Array length for sorting. */
-    ARRAY_LENGTH(Integer.class, "Array length for sorting");
+    ARRAY_LENGTH(Integer.class, "Array length for sorting"),
+    /** Enable tracing. */
+    ENABLE_TRACING(Boolean.class, "Enable tracing"),
+    /** Enable graphic mode for tracing. */
+    GRAPHIC_MODE(Boolean.class, "Enable graphic mode for tracing");
     /** Argument type. */
     private final Class type;
     /** Description. */
