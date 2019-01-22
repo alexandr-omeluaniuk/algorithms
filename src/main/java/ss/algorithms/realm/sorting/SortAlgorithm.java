@@ -17,13 +17,12 @@
 package ss.algorithms.realm.sorting;
 
 import java.util.Optional;
-import ss.algorithms.core.AlgorithmImplementation;
 
 /**
  * Sort algorithm.
  * @author ss
  */
-public interface SortAlgorithm extends AlgorithmImplementation {
+public interface SortAlgorithm {
     /**
      * Sort array of comparable items.
      * @param a array of comparable items.
@@ -47,11 +46,6 @@ public interface SortAlgorithm extends AlgorithmImplementation {
      * @param statistic sort statistic.
      */
     void exchange(Comparable[] a, int i, int j, Optional<SortStatistic> statistic);
-    /**
-     * Output an array of comparable items.
-     * @param a array of comparable items.
-     */
-    void outputArray(Comparable[] a);
     /**
      * Check if an array is sorted properly.
      * @param a an array of comparable items.

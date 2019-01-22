@@ -23,10 +23,11 @@ import ss.algorithms.constants.RealmTaskArg;
  * Algorithm implementation.
  * @author ss
  */
-public interface AlgorithmImplementation {
+public interface Task {
     /**
      * Run algorithm using embedded test data.
      * @param args task arguments.
+     * @throws Exception unexpected error.
      */
-    void run(Map<RealmTaskArg, Object> args);
+    void run(Map<RealmTaskArg, Object> args) throws Exception;
 }

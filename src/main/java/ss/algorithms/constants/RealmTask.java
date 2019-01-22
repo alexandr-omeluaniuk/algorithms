@@ -16,16 +16,20 @@
  */
 package ss.algorithms.constants;
 
+import ss.algorithms.task.SortArrayTask;
+import ss.algorithms.core.Task;
+
 /**
  * Realm task.
  * @author ss
  */
 public enum RealmTask {
-    /** Sorting. */
+    /** Sort using a single algorithm. */
     SORT_ARRAY(
             new RealmTaskArg[] {RealmTaskArg.ALGORITHM, RealmTaskArg.ARRAY_LENGTH},
             new boolean[] {true, true},
-            "Sort an array using a certain algorithm"
+            "Sort an array using a certain algorithm",
+            SortArrayTask.class
     );
     /** Task arguments. */
     private final RealmTaskArg[] args;
@@ -33,15 +37,19 @@ public enum RealmTask {
     private final boolean[] requiredMask;
     /** Description. */
     private final String description;
+    /** Task implementation. */
+    private final Class<? extends Task> implementation;
     /**
      * Constructor.
      * @param args task arguments.
      * @param requiredMask required arguments mask.
      */
-    private RealmTask(RealmTaskArg[] args, boolean[] requiredMask, String description) {
+    private RealmTask(RealmTaskArg[] args, boolean[] requiredMask, String description,
+            Class<? extends Task> implementation) {
         this.args = args;
         this.requiredMask = requiredMask;
         this.description = description;
+        this.implementation = implementation;
     }
     /**
      * @return the args
@@ -60,5 +68,11 @@ public enum RealmTask {
      */
     public String getDescription() {
         return description;
+    }
+    /**
+     * @return the implementation
+     */
+    public Class<? extends Task> getImplementation() {
+        return implementation;
     }
 }

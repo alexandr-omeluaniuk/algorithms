@@ -16,9 +16,9 @@
  */
 package ss.algorithms.constants;
 
-import ss.algorithms.core.AlgorithmImplementation;
 import ss.algorithms.realm.sorting.impl.SortInsertion;
 import ss.algorithms.realm.sorting.impl.SortSelection;
+import ss.algorithms.realm.sorting.SortAlgorithm;
 
 /**
  * Algorithm.
@@ -34,14 +34,14 @@ public enum Algorithm {
     /** Description. */
     private final String description;
     /** Algorithm implementation. **/
-    private final Class<? extends AlgorithmImplementation> implementation;
+    private final Class<? extends SortAlgorithm> implementation;
     /**
      * Constructor.
      * @param realm realm.
      * @param description description.
      */
     private Algorithm(Realm realm, String description,
-            Class<? extends AlgorithmImplementation> implementation) {
+            Class<? extends SortAlgorithm> implementation) {
         this.realm = realm;
         this.description = description;
         this.implementation = implementation;
@@ -61,7 +61,7 @@ public enum Algorithm {
     /**
      * @return the implementation
      */
-    public Class<? extends AlgorithmImplementation> getImplementation() {
+    public Class<? extends SortAlgorithm> getImplementation() {
         return implementation;
     }
 }

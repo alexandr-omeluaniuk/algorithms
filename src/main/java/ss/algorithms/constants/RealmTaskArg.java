@@ -22,7 +22,7 @@ package ss.algorithms.constants;
  */
 public enum RealmTaskArg {
     /** Algorithm. */
-    ALGORITHM(String.class, "Algorithm name"),
+    ALGORITHM(Algorithm.class, "Algorithm name"),
     /** Array length for sorting. */
     ARRAY_LENGTH(Integer.class, "Array length for sorting");
     /** Argument type. */

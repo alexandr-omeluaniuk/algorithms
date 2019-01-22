@@ -16,11 +16,8 @@
  */
 package ss.algorithms.realm.sorting;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import ss.algorithms.constants.RealmTaskArg;
-import ss.algorithms.core.RandomGenerator;
 
 /**
  * Sorting common methods.
@@ -50,13 +47,6 @@ public abstract class BaseSorting implements SortAlgorithm {
         a[j] = t;
     }
     @Override
-    public void outputArray(Comparable[] a) {
-        for (Comparable item : a) {
-            System.out.print(item + " ");
-        }
-        System.out.println("");
-    }
-    @Override
     public boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++) {
             if (less(a[i], a[i = 1], null)) {
@@ -64,19 +54,6 @@ public abstract class BaseSorting implements SortAlgorithm {
             }
         }
         return true;
-    }
-    @Override
-    public void run(Map<RealmTaskArg, Object> args) {
-        Integer arrayLength = (Integer) args.get(RealmTaskArg.ARRAY_LENGTH);
-        Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength != null
-                ? arrayLength : 32);
-        System.out.println("Source array:");
-        outputArray(a);
-        SortStatistic statistic = sort(a, true);
-        System.out.println("Sorted array:");
-        outputArray(a);
-        System.out.println("");
-        statistic.print(a.length);
     }
 // ===================================== PROTECTED ================================================
     /**
