@@ -16,6 +16,9 @@
  */
 package ss.algorithms.core;
 
+import java.util.Map;
+import ss.algorithms.constants.RealmTaskArg;
+
 /**
  * Algorithm implementation.
  * @author ss
@@ -23,6 +26,7 @@ package ss.algorithms.core;
 public interface AlgorithmImplementation {
     /**
      * Run algorithm using embedded test data.
+     * @param args task arguments.
      */
-    void run();
+    void run(Map<RealmTaskArg, Object> args);
 }

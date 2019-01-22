@@ -14,24 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ss.algorithms;
 
-import ss.algorithms.core.Help;
-
-/**
- *
- * @author ss
- */
-public class Main {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws Exception {
-        if (args == null || args.length == 0) {
-            Help.printHelp();
-        }
-//        Algorithm algorithm = /**Algorithm.valueOf(args[0])**/ Algorithm.SORT_SELECTION;
-//        algorithm.getImplementation()
-//                .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]).run();
-    }
+module ss.algorithms {
 }
