@@ -117,17 +117,23 @@ public class SortStatistic {
         System.out.println("--- exchanges:   " + this.actualExchanges);
         System.out.println("* Calculating via theoretical formulas, applied to the array: ");
         System.out.println("--- comparisons (the best):  "
-                + this.theoreticalComparisonsFuncBest.apply(arrayLength));
+                + (this.theoreticalComparisonsFuncBest == null ? "not defined"
+                : this.theoreticalComparisonsFuncBest.apply(arrayLength)));
         System.out.println("--- comparisons (average):   "
-                + this.theoreticalComparisonsFuncAvg.apply(arrayLength));
+                + (this.theoreticalComparisonsFuncAvg == null ? "not defined"
+                : this.theoreticalComparisonsFuncAvg.apply(arrayLength)));
         System.out.println("--- comparisons (the worst): "
-                + this.theoreticalComparisonsFuncWorst.apply(arrayLength));
+                + (this.theoreticalComparisonsFuncWorst == null ? "not defined"
+                : this.theoreticalComparisonsFuncWorst.apply(arrayLength)));
         System.out.println("--- exchanges (the best):    "
-                + this.theoreticalExchangesFuncBest.apply(arrayLength));
+                + (this.theoreticalExchangesFuncBest == null ? "not defined"
+                : this.theoreticalExchangesFuncBest.apply(arrayLength)));
         System.out.println("--- exchanges (average):     "
-                + this.theoreticalExchangesFuncAvg.apply(arrayLength));
+                + (this.theoreticalExchangesFuncAvg == null ? "not defined"
+                : this.theoreticalExchangesFuncAvg.apply(arrayLength)));
         System.out.println("--- exchanges (the worst):   "
-                + this.theoreticalExchangesFuncWorst.apply(arrayLength));
+                + (this.theoreticalExchangesFuncWorst == null ? "not defined"
+                : this.theoreticalExchangesFuncWorst.apply(arrayLength)));
         System.out.println("---------------------------------------------------------------------");
     }
 }

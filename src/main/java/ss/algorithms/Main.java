@@ -21,7 +21,6 @@ import java.util.Map;
 import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
-import ss.algorithms.core.Help;
 import ss.algorithms.core.Task;
 
 /**
@@ -37,7 +36,11 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         if (args == null || args.length == 0) {
-            Help.printHelp();
+            //Help.printHelp();
+            args = new String[] {
+                "task=sort_array", "-algorithm=sort_shell", "-array_length=32"
+            };
+            runTask(args);
         } else {
             runTask(args);
         }
@@ -61,7 +64,6 @@ public class Main {
                                 String key = arg1.substring(1, arg1.indexOf("=")).trim()
                                         .toUpperCase();
                                 String value = arg1.substring(arg1.indexOf("=") + 1).trim();
-                                System.out.println(key + ":" + value);
                                 try {
                                     RealmTaskArg rta = RealmTaskArg.valueOf(key);
                                     Object valCast;

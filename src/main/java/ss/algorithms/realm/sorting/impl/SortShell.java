@@ -22,39 +22,39 @@ import ss.algorithms.realm.sorting.BaseSorting;
 import ss.algorithms.realm.sorting.SortStatistic;
 
 /**
- * Sort using selection.
+ * Sort using 'Shell' algorithm.
  * @author ss
  */
-public class SortSelection extends BaseSorting {
+public class SortShell extends BaseSorting {
     @Override
     public SortStatistic sort(Comparable[] a, boolean tracing) {
         int n = a.length;
-        Function<Integer, Integer> comparisionsAlways =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2
-                        - Math.round(arrayLength / 2));
-        Function<Integer, Integer> exchangesAlways = (arrayLength) -> arrayLength;
-        SortStatistic statistic = new SortStatistic("always N^2/2 - N/2",
-                comparisionsAlways, comparisionsAlways, comparisionsAlways,
-                "always N",
-                exchangesAlways, exchangesAlways, exchangesAlways);
+        SortStatistic statistic = new SortStatistic("not defined",
+                null, null, null,
+                "not defined",
+                null, null, null);
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
-            printTraceHead(n, new String[] {"i", "min"});
+            printTraceHead(n, new String[] {"i", "j", "h"});
         }
-        for (int i = 0; i < n; i++) {
-            int min = i;
-            for (int j = i + 1; j < n; j++) {
-                if (less(a[j], a[min], optionalStatistic)) {
-                    min = j;
+        int h = 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < n; i++) {
+                for (int j = i; j >= h && less(a[j], a[j - h], optionalStatistic); j -= h) {
+                    exchange(a, j, j - h, optionalStatistic);
+                    if (tracing) {
+                        final int index = j;
+                        final int index2 = j - h;
+                        Function<Integer, Boolean> func = (k) -> k == index || k == index2;
+                        printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j),
+                            String.valueOf(h)}, func);
+                    }
                 }
             }
-            exchange(a, i, min, optionalStatistic);
-            if (tracing) {
-                final int index = i;
-                final int index2 = min;
-                Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func);
-            }
+            h = h / 3;
         }
         if (tracing) {
             System.out.println("");

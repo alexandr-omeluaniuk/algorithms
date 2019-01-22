@@ -52,7 +52,8 @@ public class SortInsertion extends BaseSorting {
                 exchange(a, j, j-1, optionalStatistic);
                 if (tracing) {
                     final int index = j;
-                    Function<Integer, Boolean> func = (k) -> k == index;
+                    final int index2 = j-1;
+                    Function<Integer, Boolean> func = (k) -> k == index || k == index2;
                     printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func);
                 }
             }
