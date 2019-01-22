@@ -17,30 +17,43 @@
 package ss.algorithms.constants;
 
 /**
- * Algorithmic realm.
+ * Realm task.
  * @author ss
  */
-public enum Realm {
+public enum RealmTask {
     /** Sorting. */
-    SORTING(new RealmTask[] {RealmTask.SORT_ARRAY}, "Sorting algorithms");
-    /** Tasks. */
-    private final RealmTask[] tasks;
+    SORT_ARRAY(
+            new RealmTaskArg[] {RealmTaskArg.ALGORITHM, RealmTaskArg.ARRAY_LENGTH},
+            new boolean[] {true, true},
+            "Sort an array using a certain algorithm"
+    );
+    /** Task arguments. */
+    private final RealmTaskArg[] args;
+    /** Required arguments mask. */
+    private final boolean[] requiredMask;
     /** Description. */
     private final String description;
     /**
      * Constructor.
-     * @param tasks realm tasks.
-     * @param description realm description.
+     * @param args task arguments.
+     * @param requiredMask required arguments mask.
      */
-    private Realm(RealmTask[] tasks, String description) {
-        this.tasks = tasks;
+    private RealmTask(RealmTaskArg[] args, boolean[] requiredMask, String description) {
+        this.args = args;
+        this.requiredMask = requiredMask;
         this.description = description;
     }
     /**
-     * @return the tasks
+     * @return the args
      */
-    public RealmTask[] getTasks() {
-        return tasks;
+    public RealmTaskArg[] getArgs() {
+        return args;
+    }
+    /**
+     * @return the requiredMask
+     */
+    public boolean[] getRequiredMask() {
+        return requiredMask;
     }
     /**
      * @return the description

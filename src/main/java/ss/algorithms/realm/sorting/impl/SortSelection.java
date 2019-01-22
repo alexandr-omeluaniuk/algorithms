@@ -30,9 +30,10 @@ public class SortSelection extends BaseSorting {
     public SortStatistic sort(Comparable[] a, boolean tracing) {
         int n = a.length;
         Function<Integer, Integer> comparisionsAlways =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2);
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2
+                        - Math.round(arrayLength / 2));
         Function<Integer, Integer> exchangesAlways = (arrayLength) -> arrayLength;
-        SortStatistic statistic = new SortStatistic("always N^2/2",
+        SortStatistic statistic = new SortStatistic("always N^2/2 - N/2",
                 comparisionsAlways, comparisionsAlways, comparisionsAlways,
                 "always N",
                 exchangesAlways, exchangesAlways, exchangesAlways);

@@ -17,30 +17,32 @@
 package ss.algorithms.constants;
 
 /**
- * Algorithmic realm.
+ * Realm task argument.
  * @author ss
  */
-public enum Realm {
-    /** Sorting. */
-    SORTING(new RealmTask[] {RealmTask.SORT_ARRAY}, "Sorting algorithms");
-    /** Tasks. */
-    private final RealmTask[] tasks;
+public enum RealmTaskArg {
+    /** Algorithm. */
+    ALGORITHM(String.class, "Algorithm name"),
+    /** Array length for sorting. */
+    ARRAY_LENGTH(Integer.class, "Array length for sorting");
+    /** Argument type. */
+    private final Class type;
     /** Description. */
     private final String description;
     /**
      * Constructor.
-     * @param tasks realm tasks.
-     * @param description realm description.
+     * @param type argument type.
+     * @param description argument description.
      */
-    private Realm(RealmTask[] tasks, String description) {
-        this.tasks = tasks;
+    private RealmTaskArg(Class type, String description) {
+        this.type = type;
         this.description = description;
     }
     /**
-     * @return the tasks
+     * @return the type
      */
-    public RealmTask[] getTasks() {
-        return tasks;
+    public Class getType() {
+        return type;
     }
     /**
      * @return the description

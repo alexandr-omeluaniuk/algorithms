@@ -27,7 +27,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        Algorithm algorithm = /**Algorithm.valueOf(args[0])**/ Algorithm.SORT_INSERTION;
+        Algorithm algorithm = /**Algorithm.valueOf(args[0])**/ Algorithm.SORT_SELECTION;
         algorithm.getImplementation()
                 .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]).run();
     }

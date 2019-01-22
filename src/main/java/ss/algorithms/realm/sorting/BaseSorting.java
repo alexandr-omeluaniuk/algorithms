@@ -90,7 +90,7 @@ public abstract class BaseSorting implements SortAlgorithm {
                     ? SEPARATOR.repeat(minLength - label.length()) + label : label)
                     .append(SEPARATOR);
         }
-        sb.append(" |");
+        sb.append("|");
         int width = String.valueOf(n).length() + 1;
         for (int i = 0; i < n; i++) {
             sb.append(SEPARATOR.repeat(width - String.valueOf(i).length())).append(i)
