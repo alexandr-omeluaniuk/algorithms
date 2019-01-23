@@ -20,7 +20,7 @@ import java.util.Optional;
 import ss.algorithms.constants.Realm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
-import ss.console.ConsoleTextDrawer;
+import ss.console.ConsoleDrawer;
 
 /**
  * Program help.
@@ -32,13 +32,13 @@ public class Help {
      */
     public static void printHelp() {
         final int lineLength = 100;
-        System.out.println(ConsoleTextDrawer.line('#', lineLength));
-        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength, "ALGORITHMS",
+        System.out.println(ConsoleDrawer.line('#', lineLength));
+        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength, "ALGORITHMS",
                 Optional.of('#'), Optional.of(' ')));
-        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+        System.out.println(ConsoleDrawer.line('#', lineLength));
         System.out.println("");
         for (Realm realm : Realm.values()) {
-            System.out.println(ConsoleTextDrawer.line('-', lineLength));
+            System.out.println(ConsoleDrawer.line('-', lineLength));
             System.out.println("> " + realm.getDescription());
             System.out.println("\tList of tasks:");
             for (RealmTask task : realm.getTasks()) {

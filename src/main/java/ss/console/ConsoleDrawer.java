@@ -19,10 +19,10 @@ package ss.console;
 import java.util.Optional;
 
 /**
- * Console text drawer.
+ * Console drawer.
  * @author ss
  */
-public class ConsoleTextDrawer {
+public class ConsoleDrawer {
     /**
      * Draw a line with a single character.
      * @param ch character.
@@ -59,5 +59,39 @@ public class ConsoleTextDrawer {
             result = sb.toString();
         }
         return result;
+    }
+    /**
+     * Print table.
+     * @param table table data.
+     */
+    public static void printTable(String[][] table) {
+        int rows = table.length;
+        int columns = table[0].length;
+        int[] widths = new int[columns];
+        for (int row = 0; row < rows; row++) {
+            String[] rowData = table[row];
+            for (int column = 0; column < columns; column++) {
+                String val = rowData[column];
+                int width = widths[column];
+                if (val != null && val.length() > width) {
+                    widths[column] = val.length();
+                }
+            }
+        }
+        for (int row = 0; row < rows; row++) {
+            String[] rowData = table[row];
+            StringBuilder sb = new StringBuilder();
+            sb.append("|");
+            for (int column = 0; column < columns; column++) {
+                String val = rowData[column];
+                int width = widths[column];
+                String valTmp = val + "";
+                while (valTmp.length() < width) {
+                    valTmp = valTmp + " ";
+                }
+                sb.append(" ").append(valTmp).append(" |");
+            }
+            System.out.println(sb);
+        }
     }
 }

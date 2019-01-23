@@ -64,9 +64,9 @@ public class SortStatistic {
      */
     private final Function<Integer, Integer> theoreticalExchangesFuncWorst;
     /** Actual comparisons. */
-    private int actualComparisons;
+    private long actualComparisons;
     /** Actual exchanges. */
-    private int actualExchanges;
+    private long actualExchanges;
     /**
      * Constructor.
      * @param theoreticalComparisons theoretical comparisons.
@@ -135,5 +135,17 @@ public class SortStatistic {
                 + (this.theoreticalExchangesFuncWorst == null ? "not defined"
                 : this.theoreticalExchangesFuncWorst.apply(arrayLength)));
         System.out.println("---------------------------------------------------------------------");
+    }
+    /**
+     * @return the actualComparisons
+     */
+    public long getComparisons() {
+        return actualComparisons;
+    }
+    /**
+     * @return the actualExchanges
+     */
+    public long getExchanges() {
+        return actualExchanges;
     }
 }

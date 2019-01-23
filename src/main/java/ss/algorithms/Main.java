@@ -23,7 +23,7 @@ import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
 import ss.algorithms.core.Task;
-import ss.console.ConsoleTextDrawer;
+import ss.console.ConsoleDrawer;
 
 /**
  * Entry point.
@@ -39,9 +39,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args == null || args.length == 0) {
             //Help.printHelp();
+//            args = new String[] {
+//                "task=sort_array", "-algorithm=sort_shell", "-array_length=32",
+//                "-enable_tracing=true", "-graphic_mode=true"
+//            };
             args = new String[] {
-                "task=sort_array", "-algorithm=sort_shell", "-array_length=32",
-                "-enable_tracing=true", "-graphic_mode=true"
+                "task=compare_sort_algorithms", "-array_length=100000"
             };
             runTask(args);
         } else {
@@ -86,7 +89,7 @@ public class Main {
                             }
                         }
                         int index = 0;
-                        for (RealmTaskArg rta : RealmTaskArg.values()) {
+                        for (RealmTaskArg rta : task.getArgs()) {
                             if (task.getRequiredMask()[index] && !params.containsKey(rta)) {
                                 throw new RuntimeException(rta.name().toLowerCase()
                                         + " argument is required for this task!");
@@ -94,19 +97,19 @@ public class Main {
                             index++;
                         }
                         final int lineLength = 128;
-                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
-                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                        System.out.println(ConsoleDrawer.line('#', lineLength));
+                        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength,
                                 task.name(), Optional.of('-'), Optional.of(' ')));
-                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength,
                                 task.getDescription(), Optional.of('-'), Optional.of(' ')));
-                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+                        System.out.println(ConsoleDrawer.line('#', lineLength));
                         System.out.println("");
                         taskImpl.run(params);
                         System.out.println("");
-                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
-                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                        System.out.println(ConsoleDrawer.line('#', lineLength));
+                        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength,
                                 "COMPLETED", Optional.of('-'), Optional.of(' ')));
-                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+                        System.out.println(ConsoleDrawer.line('#', lineLength));
                         return;
                     }
                 }
