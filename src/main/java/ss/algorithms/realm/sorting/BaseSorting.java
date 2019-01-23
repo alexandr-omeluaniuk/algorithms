@@ -59,6 +59,31 @@ public abstract class BaseSorting implements SortAlgorithm {
         }
         return true;
     }
+    @Override
+    public void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
+            Optional<SortStatistic> optionalStatistic, boolean tracing, boolean isGraphicMode) {
+        int i = low;
+        int j = middle + 1;
+        for (int k = low; k <= high; k++) {
+            aux[k] = a[k];
+        }
+        for (int k = low; k <= high; k++) {
+            if (i > middle) {
+                a[k] = aux[j++];
+            } else if (j > high) {
+                a[k] = aux[i++];
+            } else if (less(aux[j], aux[i], optionalStatistic)) {
+                a[k] = aux[j++];
+            } else {
+                a[k] = aux[i++];
+            }
+        }
+        if (tracing) {
+            Function<Integer, Boolean> func = (idx) -> idx >= low && idx <= high;
+            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func,
+                    isGraphicMode);
+        }
+    }
 // ===================================== PROTECTED ================================================
     /**
      * Print trace head.
@@ -76,7 +101,7 @@ public abstract class BaseSorting implements SortAlgorithm {
                     ? SEPARATOR.repeat(minLength - label.length()) + label : label)
                     .append(SEPARATOR);
         }
-        sb.append(" |");
+        sb.append("|");
         int labelsWidth = sb.length();
         int width = isGraphicMode ? 1 : String.valueOf(n).length() + 1;
         for (int i = 0; i < n; i++) {

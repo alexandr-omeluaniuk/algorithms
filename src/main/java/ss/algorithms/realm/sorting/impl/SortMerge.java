@@ -17,46 +17,34 @@
 package ss.algorithms.realm.sorting.impl;
 
 import java.util.Optional;
-import java.util.function.Function;
 import ss.algorithms.realm.sorting.BaseSorting;
 import ss.algorithms.realm.sorting.SortStatistic;
 
 /**
- * Sort using 'Shell' algorithm.
+ * Sort using merging.
  * @author ss
  */
-public class SortShell extends BaseSorting {
+public class SortMerge extends BaseSorting {
     @Override
     public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
         int n = a.length;
         SortStatistic statistic = new SortStatistic();
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
-            printTraceHead(n, new String[] {"i", "j", "h"}, isGraphicMode);
+            printTraceHead(n, new String[] {"low", "high"}, isGraphicMode);
         }
-        int h = 1;
-        while (h < n / 3) {
-            h = 3 * h + 1;
-        }
-        while (h >= 1) {
-            for (int i = h; i < n; i++) {
-                for (int j = i; j >= h && less(a[j], a[j - h], optionalStatistic); j -= h) {
-                    exchange(a, j, j - h, optionalStatistic);
-                    if (tracing) {
-                        final int index = j;
-                        final int index2 = j - h;
-                        Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                        printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j),
-                            String.valueOf(h)}, func, isGraphicMode);
-                    }
-                }
-            }
-            h = h / 3;
-        }
-        if (tracing) {
-            System.out.println("");
-        }
-        assert(isSorted(a));
+        Comparable[] aux = new Comparable[n];
+        elemenarySort(a, 0, n - 1, aux, optionalStatistic, tracing, isGraphicMode);
         return statistic;
+    }
+    private void elemenarySort(Comparable[] a, int low, int high, Comparable[] aux, 
+            Optional<SortStatistic> optionalStatistic, boolean tracing, boolean isGraphicMode) {
+        if (high <= low) {
+            return;
+        }
+        int middle = low + (high - low) / 2;
+        elemenarySort(a, low, middle, aux, optionalStatistic, tracing, isGraphicMode);
+        elemenarySort(a, middle + 1, high, aux, optionalStatistic, tracing, isGraphicMode);
+        merge(a, low, middle, high, aux, optionalStatistic, tracing, isGraphicMode);
     }
 }

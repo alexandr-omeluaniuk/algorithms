@@ -53,4 +53,17 @@ public interface SortAlgorithm {
      * @return true if it is sorted.
      */
     boolean isSorted(Comparable[] a);
+    /**
+     * Merge two sorted sub-arrays into one array.
+     * @param a two sorted sub-arrays.
+     * @param low the first sub-array start index.
+     * @param middle the second sub-array start index.
+     * @param high the second sub-array end index.
+     * @param aux auxiliary array, length must match with 'a' array.
+     * @param statistic sort statistic.
+     * @param tracing enable tracing.
+     * @param isGraphicMode enable tracing graphic mode.
+     */
+    void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
+            Optional<SortStatistic> statistic, boolean tracing, boolean isGraphicMode);
 }

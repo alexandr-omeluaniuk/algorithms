@@ -39,13 +39,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args == null || args.length == 0) {
             //Help.printHelp();
-//            args = new String[] {
-//                "task=sort_array", "-algorithm=sort_shell", "-array_length=32",
-//                "-enable_tracing=true", "-graphic_mode=true"
-//            };
             args = new String[] {
-                "task=compare_sort_algorithms", "-array_length=100000"
+                "task=sort_array", "-algorithm=sort_merging", "-array_length=32",
+                "-enable_tracing=true", "-graphic_mode=true"
             };
+//            args = new String[] {
+//                "task=compare_sort_algorithms", "-array_length=100000"
+//            };
             runTask(args);
         } else {
             runTask(args);

@@ -19,6 +19,7 @@ package ss.algorithms.constants;
 import ss.algorithms.realm.sorting.impl.SortInsertion;
 import ss.algorithms.realm.sorting.impl.SortSelection;
 import ss.algorithms.realm.sorting.SortAlgorithm;
+import ss.algorithms.realm.sorting.impl.SortMerge;
 import ss.algorithms.realm.sorting.impl.SortShell;
 
 /**
@@ -31,7 +32,9 @@ public enum Algorithm {
     /** Sort using insertion. */
     SORT_INSERTION(Realm.SORTING, "Sort using insertion algorithm", SortInsertion.class),
     /** Sort using 'Shell' algorithm. */
-    SORT_SHELL(Realm.SORTING, "Sort using 'Shell' algorithm", SortShell.class);
+    SORT_SHELL(Realm.SORTING, "Sort using 'Shell' algorithm", SortShell.class),
+    /** Sort using 'Shell' algorithm. */
+    SORT_MERGING(Realm.SORTING, "Sort with merging", SortMerge.class);
     /** Realm. */
     private final Realm realm;
     /** Description. */

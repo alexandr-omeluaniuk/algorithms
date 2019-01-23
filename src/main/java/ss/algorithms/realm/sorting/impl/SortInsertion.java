@@ -29,20 +29,18 @@ public class SortInsertion extends BaseSorting {
     @Override
     public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
         int n = a.length;
-        Function<Integer, Integer> comparisionsAvg =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2);
-        Function<Integer, Integer> comparisionsBest =
-                (arrayLength) -> arrayLength - 1;
-        Function<Integer, Integer> comparisionsWorst =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2));
-        Function<Integer, Integer> exchangesAvg = (arrayLength) -> arrayLength;
-        Function<Integer, Integer> exchangesBest = (arrayLength) -> 0;
-        Function<Integer, Integer> exchangesWorst =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2));
-        SortStatistic statistic = new SortStatistic("avarage N^2/2, the best N-1, the worst N^2",
-                comparisionsAvg, comparisionsBest, comparisionsWorst,
-                "average N^2/2, the best 0, the worst N^2",
-                exchangesAvg, exchangesBest, exchangesWorst);
+        SortStatistic statistic = new SortStatistic();
+        statistic.setTheoreticalComparisons("avarage N^2/2, the best N-1, the worst N^2");
+        statistic.setTheoreticalComparisonsFuncAvg(
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2));
+        statistic.setTheoreticalComparisonsFuncBest((arrayLength) -> arrayLength - 1);
+        statistic.setTheoreticalComparisonsFuncWorst(
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2)));
+        statistic.setTheoreticalExchanges("average N^2/2, the best 0, the worst N^2");
+        statistic.setTheoreticalExchangesFuncAvg((arrayLength) -> arrayLength);
+        statistic.setTheoreticalExchangesFuncBest((arrayLength) -> 0);
+        statistic.setTheoreticalExchangesFuncWorst(
+                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2)));
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
             printTraceHead(n, new String[] {"i", "j"}, isGraphicMode);

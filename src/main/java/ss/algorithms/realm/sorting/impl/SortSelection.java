@@ -33,10 +33,15 @@ public class SortSelection extends BaseSorting {
                 (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2
                         - Math.round(arrayLength / 2));
         Function<Integer, Integer> exchangesAlways = (arrayLength) -> arrayLength;
-        SortStatistic statistic = new SortStatistic("always N^2/2 - N/2",
-                comparisionsAlways, comparisionsAlways, comparisionsAlways,
-                "always N",
-                exchangesAlways, exchangesAlways, exchangesAlways);
+        SortStatistic statistic = new SortStatistic();
+        statistic.setTheoreticalComparisons("always N^2/2 - N/2");
+        statistic.setTheoreticalComparisonsFuncAvg(comparisionsAlways);
+        statistic.setTheoreticalComparisonsFuncBest(comparisionsAlways);
+        statistic.setTheoreticalComparisonsFuncWorst(comparisionsAlways);
+        statistic.setTheoreticalExchanges("always N");
+        statistic.setTheoreticalExchangesFuncAvg(exchangesAlways);
+        statistic.setTheoreticalExchangesFuncBest(exchangesAlways);
+        statistic.setTheoreticalExchangesFuncWorst(exchangesAlways);
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (tracing) {
             printTraceHead(n, new String[] {"i", "min"}, isGraphicMode);
