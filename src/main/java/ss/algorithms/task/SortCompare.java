@@ -70,6 +70,9 @@ public class SortCompare implements Task {
         int currentColumn = 1;
         Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
         for (Algorithm alg : sortAlgorithms.keySet()) {
+//            if (Algorithm.SORT_SELECTION == alg || Algorithm.SORT_INSERTION == alg) {
+//                continue;
+//            }
             Comparable[] aCopy = new Comparable[a.length];
             System.arraycopy(a, 0, aCopy, 0, a.length);
             SortAlgorithm sa = sortAlgorithms.get(alg);

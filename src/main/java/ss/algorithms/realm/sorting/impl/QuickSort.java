@@ -30,6 +30,7 @@ public class QuickSort extends BaseSorting {
     }
     @Override
     public SortStatistic sort(Comparable[] a) {
+        long start = System.currentTimeMillis();
         int n = a.length;
         SortStatistic statistic = new SortStatistic();
         if (isTracing()) {
@@ -37,6 +38,7 @@ public class QuickSort extends BaseSorting {
             printTraceState(a, new String[] {"", "", ""}, (k) -> false, null);
         }
         sortSubArray(a, 0, a.length - 1, statistic);
+        System.out.println("Quick sort time: " + (System.currentTimeMillis() - start) + " ms");
         return statistic;
     }
     private void sortSubArray(Comparable[] a, int low, int high, SortStatistic statistic) {

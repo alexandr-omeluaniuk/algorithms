@@ -41,16 +41,20 @@ public class SortArrayTask implements Task {
         Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
         System.out.println(ConsoleDrawer.lineTextInMiddle(128, algorithm.getDescription(),
                 ' ', ' '));
-        System.out.println("Source array:");
-        outputArray(a);
+        if (enableTracing) {
+            System.out.println("Source array:");
+            outputArray(a);
+        }
         SortAlgorithm sortAlgorithm = (SortAlgorithm) algorithm.getImplementation()
                 .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
         sortAlgorithm.setTracing(enableTracing);
         sortAlgorithm.setIsGraphicMode(isGraphicMode);
         SortStatistic statistic = sortAlgorithm.sort(a);
         System.out.println("");
-        System.out.println("Sorted array:");
-        outputArray(a);
+        if (enableTracing) {
+            System.out.println("Sorted array:");
+            outputArray(a);
+        }
         if (!sortAlgorithm.isSorted(a)) {
             throw new RuntimeException("Array is not sorted!");
         }

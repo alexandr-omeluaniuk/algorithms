@@ -21,6 +21,7 @@ import java.util.Map;
 import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
+import ss.algorithms.core.Help;
 import ss.algorithms.core.Task;
 import ss.console.ConsoleDrawer;
 
@@ -37,15 +38,15 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         if (args == null || args.length == 0) {
-            //Help.printHelp();
-            args = new String[] {
-                "task=sort_array", "-algorithm=quick_sort", "-array_length=32",
-                "-enable_tracing=true", "-graphic_mode=true"
-            };
+            Help.printHelp();
 //            args = new String[] {
-//                "task=compare_sort_algorithms", "-array_length=100000"
+//                "task=sort_array", "-algorithm=quick_sort", "-array_length=48",
+//                "-enable_tracing=true", "-graphic_mode=true"
 //            };
-            runTask(args);
+//            args = new String[] {
+//                "task=compare_sort_algorithms", "-array_length=1000000"
+//            };
+//            runTask(args);
         } else {
             runTask(args);
         }

@@ -22,7 +22,8 @@ package ss.algorithms.constants;
  */
 public enum Realm {
     /** Sorting. */
-    SORTING(new RealmTask[] {RealmTask.SORT_ARRAY}, "Sorting algorithms");
+    SORTING(new RealmTask[] {RealmTask.SORT_ARRAY, RealmTask.COMPARE_SORT_ALGORITHMS},
+            "Sorting algorithms");
     /** Tasks. */
     private final RealmTask[] tasks;
     /** Description. */
