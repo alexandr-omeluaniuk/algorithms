@@ -46,11 +46,14 @@ public class SortArrayTask implements Task {
         outputArray(a);
         SortAlgorithm sortAlgorithm = (SortAlgorithm) algorithm.getImplementation()
                 .getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
-        SortStatistic statistic = sortAlgorithm.sort(a, enableTracing, isGraphicMode);
+        sortAlgorithm.setTracing(enableTracing);
+        sortAlgorithm.setIsGraphicMode(isGraphicMode);
+        SortStatistic statistic = sortAlgorithm.sort(a);
+        System.out.println("");
         System.out.println("Sorted array:");
         outputArray(a);
         System.out.println("");
-        statistic.print(a.length);
+        statistic.print();
     }
     /**
      * Output an array of comparable items.

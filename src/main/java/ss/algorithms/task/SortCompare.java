@@ -72,7 +72,7 @@ public class SortCompare implements Task {
             long start = System.currentTimeMillis();
             SortAlgorithm sa = sortAlgorithms.get(alg);
             Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
-            SortStatistic statistic = sa.sort(a, false, false);
+            SortStatistic statistic = sa.sort(a);
             long elapsedTime = System.currentTimeMillis() - start;
             long exchanges = statistic.getExchanges();
             long comparisons = statistic.getComparisons();

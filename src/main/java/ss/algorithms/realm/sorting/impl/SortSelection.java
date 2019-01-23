@@ -27,24 +27,18 @@ import ss.algorithms.realm.sorting.SortStatistic;
  */
 public class SortSelection extends BaseSorting {
     @Override
-    public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
+    public String[] getTableLabels() {
+        return new String[] {"i", "min"};
+    }
+    @Override
+    public SortStatistic sort(Comparable[] a) {
         int n = a.length;
-        Function<Integer, Integer> comparisionsAlways =
-                (arrayLength) -> Math.round((float) Math.pow(arrayLength, 2) / 2
-                        - Math.round(arrayLength / 2));
-        Function<Integer, Integer> exchangesAlways = (arrayLength) -> arrayLength;
         SortStatistic statistic = new SortStatistic();
         statistic.setTheoreticalComparisons("always N^2/2 - N/2");
-        statistic.setTheoreticalComparisonsFuncAvg(comparisionsAlways);
-        statistic.setTheoreticalComparisonsFuncBest(comparisionsAlways);
-        statistic.setTheoreticalComparisonsFuncWorst(comparisionsAlways);
         statistic.setTheoreticalExchanges("always N");
-        statistic.setTheoreticalExchangesFuncAvg(exchangesAlways);
-        statistic.setTheoreticalExchangesFuncBest(exchangesAlways);
-        statistic.setTheoreticalExchangesFuncWorst(exchangesAlways);
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
-        if (tracing) {
-            printTraceHead(n, new String[] {"i", "min"}, isGraphicMode);
+        if (isTracing()) {
+            printTraceHead(n);
         }
         for (int i = 0; i < n; i++) {
             int min = i;
@@ -54,16 +48,12 @@ public class SortSelection extends BaseSorting {
                 }
             }
             exchange(a, i, min, optionalStatistic);
-            if (tracing) {
+            if (isTracing()) {
                 final int index = i;
                 final int index2 = min;
                 Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func,
-                        isGraphicMode);
+                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func);
             }
-        }
-        if (tracing) {
-            System.out.println("");
         }
         assert(isSorted(a));
         return statistic;

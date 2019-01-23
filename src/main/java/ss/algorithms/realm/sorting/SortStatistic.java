@@ -16,7 +16,7 @@
  */
 package ss.algorithms.realm.sorting;
 
-import java.util.function.Function;
+import java.util.List;
 
 /**
  * Sort statistic.
@@ -25,48 +25,14 @@ import java.util.function.Function;
 public class SortStatistic {
     /** Theoretical comparisons. */
     private String theoreticalComparisons;
-    /**
-     * Theoretical comparisons function, accepts an array length,
-     * returns theoretical comparisons.
-     * Calculated average value.
-     */
-    private Function<Integer, Integer> theoreticalComparisonsFuncAvg;
-    /**
-     * Theoretical comparisons function, accepts an array length,
-     * returns theoretical comparisons.
-     * Calculated the best value.
-     */
-    private Function<Integer, Integer> theoreticalComparisonsFuncBest;
-    /**
-     * Theoretical comparisons function, accepts an array length,
-     * returns theoretical comparisons.
-     * Calculated the worst value.
-     */
-    private Function<Integer, Integer> theoreticalComparisonsFuncWorst;
     /** Theoretical exchanges.*/
     private String theoreticalExchanges;
-    /**
-     * Theoretical exchanges function, accepts an array length,
-     * returns theoretical exchanges.
-     * Calculated average value.
-     */
-    private Function<Integer, Integer> theoreticalExchangesFuncAvg;
-    /**
-     * Theoretical exchanges function, accepts an array length,
-     * returns theoretical exchanges.
-     * Calculated the best value.
-     */
-    private Function<Integer, Integer> theoreticalExchangesFuncBest;
-    /**
-     * Theoretical exchanges function, accepts an array length,
-     * returns theoretical exchanges.
-     * Calculated the worst value.
-     */
-    private Function<Integer, Integer> theoreticalExchangesFuncWorst;
     /** Actual comparisons. */
     private long actualComparisons;
     /** Actual exchanges. */
     private long actualExchanges;
+    /** Sort history. */
+    private List<Comparable[]> history;
     /**
      * Increment comparisons count.
      */
@@ -79,35 +45,21 @@ public class SortStatistic {
     public void incrementExchanges() {
         this.actualExchanges++;
     }
-    public void print(int arrayLength) {
+    /**
+     * Print statistic.
+     */
+    public void print() {
         System.out.println("------------------------[ PRINT STATISTIC ]--------------------------");
-        System.out.println("* Theoretical information:");
-        System.out.println("--- comparisons: "
-                + (this.theoreticalComparisons != null ? this.theoreticalComparisons : "-"));
-        System.out.println("--- exchanges:   "
-                + (this.theoreticalExchanges != null ? this.theoreticalExchanges : "-"));
-        System.out.println("* Actual information:");
+        if (this.theoreticalComparisons != null || this.theoreticalExchanges != null) {
+            System.out.println("* Theoretical information:");
+            System.out.println("--- comparisons: "
+                    + (this.theoreticalComparisons != null ? this.theoreticalComparisons : "-"));
+            System.out.println("--- exchanges:   "
+                    + (this.theoreticalExchanges != null ? this.theoreticalExchanges : "-"));
+        }
+        System.out.println("* Sort operation information:");
         System.out.println("--- comparisons: " + this.actualComparisons);
         System.out.println("--- exchanges:   " + this.actualExchanges);
-        System.out.println("* Calculating via theoretical formulas, applied to the array: ");
-        System.out.println("--- comparisons (the best):  "
-                + (this.theoreticalComparisonsFuncBest == null ? "-"
-                : this.theoreticalComparisonsFuncBest.apply(arrayLength)));
-        System.out.println("--- comparisons (average):   "
-                + (this.theoreticalComparisonsFuncAvg == null ? "-"
-                : this.theoreticalComparisonsFuncAvg.apply(arrayLength)));
-        System.out.println("--- comparisons (the worst): "
-                + (this.theoreticalComparisonsFuncWorst == null ? "-"
-                : this.theoreticalComparisonsFuncWorst.apply(arrayLength)));
-        System.out.println("--- exchanges (the best):    "
-                + (this.theoreticalExchangesFuncBest == null ? "-"
-                : this.theoreticalExchangesFuncBest.apply(arrayLength)));
-        System.out.println("--- exchanges (average):     "
-                + (this.theoreticalExchangesFuncAvg == null ? "-"
-                : this.theoreticalExchangesFuncAvg.apply(arrayLength)));
-        System.out.println("--- exchanges (the worst):   "
-                + (this.theoreticalExchangesFuncWorst == null ? "-"
-                : this.theoreticalExchangesFuncWorst.apply(arrayLength)));
         System.out.println("---------------------------------------------------------------------");
     }
     /**
@@ -129,45 +81,9 @@ public class SortStatistic {
         this.theoreticalComparisons = theoreticalComparisons;
     }
     /**
-     * @param theoreticalComparisonsFuncAvg the theoreticalComparisonsFuncAvg to set
-     */
-    public void setTheoreticalComparisonsFuncAvg(Function<Integer, Integer> theoreticalComparisonsFuncAvg) {
-        this.theoreticalComparisonsFuncAvg = theoreticalComparisonsFuncAvg;
-    }
-    /**
-     * @param theoreticalComparisonsFuncBest the theoreticalComparisonsFuncBest to set
-     */
-    public void setTheoreticalComparisonsFuncBest(Function<Integer, Integer> theoreticalComparisonsFuncBest) {
-        this.theoreticalComparisonsFuncBest = theoreticalComparisonsFuncBest;
-    }
-    /**
-     * @param theoreticalComparisonsFuncWorst the theoreticalComparisonsFuncWorst to set
-     */
-    public void setTheoreticalComparisonsFuncWorst(Function<Integer, Integer> theoreticalComparisonsFuncWorst) {
-        this.theoreticalComparisonsFuncWorst = theoreticalComparisonsFuncWorst;
-    }
-    /**
      * @param theoreticalExchanges the theoreticalExchanges to set
      */
     public void setTheoreticalExchanges(String theoreticalExchanges) {
         this.theoreticalExchanges = theoreticalExchanges;
-    }
-    /**
-     * @param theoreticalExchangesFuncAvg the theoreticalExchangesFuncAvg to set
-     */
-    public void setTheoreticalExchangesFuncAvg(Function<Integer, Integer> theoreticalExchangesFuncAvg) {
-        this.theoreticalExchangesFuncAvg = theoreticalExchangesFuncAvg;
-    }
-    /**
-     * @param theoreticalExchangesFuncBest the theoreticalExchangesFuncBest to set
-     */
-    public void setTheoreticalExchangesFuncBest(Function<Integer, Integer> theoreticalExchangesFuncBest) {
-        this.theoreticalExchangesFuncBest = theoreticalExchangesFuncBest;
-    }
-    /**
-     * @param theoreticalExchangesFuncWorst the theoreticalExchangesFuncWorst to set
-     */
-    public void setTheoreticalExchangesFuncWorst(Function<Integer, Integer> theoreticalExchangesFuncWorst) {
-        this.theoreticalExchangesFuncWorst = theoreticalExchangesFuncWorst;
     }
 }

@@ -26,11 +26,9 @@ public interface SortAlgorithm {
     /**
      * Sort array of comparable items.
      * @param a array of comparable items.
-     * @param tracing trace output.
-     * @param isGraphicMode enable graphic mode for tracing.
      * @return sort statistic.
      */
-    SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode);
+    SortStatistic sort(Comparable[] a);
     /**
      * Check if v less than w;
      * @param v the first comparable item.
@@ -61,9 +59,18 @@ public interface SortAlgorithm {
      * @param high the second sub-array end index.
      * @param aux auxiliary array, length must match with 'a' array.
      * @param statistic sort statistic.
-     * @param tracing enable tracing.
-     * @param isGraphicMode enable tracing graphic mode.
      */
     void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
-            Optional<SortStatistic> statistic, boolean tracing, boolean isGraphicMode);
+            Optional<SortStatistic> statistic);
+    /**
+     * Set tracing flag.
+     * @param tracing tracing.
+     */
+    public void setTracing(boolean tracing);
+    /**
+     * Set graphic mode flag.
+     * Unused if tracing is disabled.
+     * @param isGraphicMode graphic mode.
+     */
+    public void setIsGraphicMode(boolean isGraphicMode);
 }

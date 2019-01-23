@@ -26,25 +26,37 @@ import ss.algorithms.realm.sorting.SortStatistic;
  */
 public class SortMerge extends BaseSorting {
     @Override
-    public SortStatistic sort(Comparable[] a, boolean tracing, boolean isGraphicMode) {
+    public String[] getTableLabels() {
+        return new String[] {"low", "high"};
+    }
+    @Override
+    public SortStatistic sort(Comparable[] a) {
         int n = a.length;
         SortStatistic statistic = new SortStatistic();
         Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
-        if (tracing) {
-            printTraceHead(n, new String[] {"low", "high"}, isGraphicMode);
+        if (isTracing()) {
+            printTraceHead(n);
         }
         Comparable[] aux = new Comparable[n];
-        elemenarySort(a, 0, n - 1, aux, optionalStatistic, tracing, isGraphicMode);
+        sortSubArray(a, 0, n - 1, aux, optionalStatistic);
         return statistic;
     }
-    private void elemenarySort(Comparable[] a, int low, int high, Comparable[] aux, 
-            Optional<SortStatistic> optionalStatistic, boolean tracing, boolean isGraphicMode) {
+    /**
+     * Sort two sub arrays.
+     * @param a full array.
+     * @param low low full array index.
+     * @param high high full array index.
+     * @param aux auxiliary array for copy.
+     * @param statistic sort statistic.
+     */
+    private void sortSubArray(Comparable[] a, int low, int high, Comparable[] aux, 
+            Optional<SortStatistic> statistic) {
         if (high <= low) {
             return;
         }
         int middle = low + (high - low) / 2;
-        elemenarySort(a, low, middle, aux, optionalStatistic, tracing, isGraphicMode);
-        elemenarySort(a, middle + 1, high, aux, optionalStatistic, tracing, isGraphicMode);
-        merge(a, low, middle, high, aux, optionalStatistic, tracing, isGraphicMode);
+        sortSubArray(a, low, middle, aux, statistic);
+        sortSubArray(a, middle + 1, high, aux, statistic);
+        merge(a, low, middle, high, aux, statistic);
     }
 }

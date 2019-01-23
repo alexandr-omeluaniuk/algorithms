@@ -34,6 +34,12 @@ public abstract class BaseSorting implements SortAlgorithm {
     private static final char[] SYMBOLS = new char[] {
         0x2581, 0x2582, 0x2583, 0x2584, 0x2585, 0x2586, 0x2587, 0x2588
     };
+    /** Is tracing enabled. */
+    private boolean tracing = false;
+    /** Is tracing graphic mode enabled. */
+    private boolean isGraphicMode = false;
+    /** Trace table head labels. */
+    protected String[] tableLabels;
     @Override
     public boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic) {
         if (statistic.isPresent()) {
@@ -61,7 +67,7 @@ public abstract class BaseSorting implements SortAlgorithm {
     }
     @Override
     public void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
-            Optional<SortStatistic> optionalStatistic, boolean tracing, boolean isGraphicMode) {
+            Optional<SortStatistic> optionalStatistic) {
         int i = low;
         int j = middle + 1;
         for (int k = low; k <= high; k++) {
@@ -78,23 +84,20 @@ public abstract class BaseSorting implements SortAlgorithm {
                 a[k] = aux[i++];
             }
         }
-        if (tracing) {
+        if (isTracing()) {
             Function<Integer, Boolean> func = (idx) -> idx >= low && idx <= high;
-            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func,
-                    isGraphicMode);
+            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func);
         }
     }
 // ===================================== PROTECTED ================================================
     /**
      * Print trace head.
      * @param n array length.
-     * @param labels first columns labels.
-     * @param isGraphicMode enable graphic mode for tracing.
      */
-    protected void printTraceHead(int n, String[] labels, boolean isGraphicMode) {
+    protected void printTraceHead(int n) {
         System.out.println("");
         StringBuilder sb = new StringBuilder();
-        for (String label : labels) {
+        for (String label : getTableLabels()) {
             int minLength = label.length() > String.valueOf(n).length()
                     ? label.length() : String.valueOf(n).length();
             sb.append(minLength > label.length()
@@ -116,20 +119,23 @@ public abstract class BaseSorting implements SortAlgorithm {
      * @param a array.
      * @param values values for the first 'info' columns, depends on header configuration.
      * @param highlightCondition highlight cell condition.
-     * @param isGraphicMode enable graphic mode.
      */
     protected void printTraceState(Comparable[] a, String[] values,
-            Function<Integer, Boolean> highlightCondition, boolean isGraphicMode) {
+            Function<Integer, Boolean> highlightCondition) {
         int n = a.length;
         StringBuilder sb = new StringBuilder();
+        int counter = 0;
         for (String value : values) {
             int minLength = value.length() > String.valueOf(n).length()
                     ? value.length() : String.valueOf(n).length();
+            minLength = minLength < this.getTableLabels()[counter].length()
+                    ? this.getTableLabels()[counter].length() : minLength;
             sb.append(minLength > value.length()
                     ? SEPARATOR.repeat(minLength - value.length()) + value : value)
                     .append(SEPARATOR);
+            counter++;
         }
-        sb.append(" |");
+        sb.append("|");
         int width = isGraphicMode ? 0 : String.valueOf(n).length() + 1;
         int max = 0;
         for (Comparable item : a) {
@@ -146,7 +152,8 @@ public abstract class BaseSorting implements SortAlgorithm {
                 double tmp = Double.valueOf(a[k].toString()) / max;
                 Double tm2 = tmp * (SYMBOLS.length - 1) / max * 100;
                 int index = tm2.intValue();
-                value = String.valueOf(SYMBOLS[index]);
+                value = String.valueOf(
+                        SYMBOLS[index > SYMBOLS.length - 1 ? SYMBOLS.length - 1 : index]);
             } else {
                 value = a[k];
             }
@@ -158,4 +165,27 @@ public abstract class BaseSorting implements SortAlgorithm {
         }
         System.out.println(sb);
     }
+// ========================================== SETTERS =============================================
+    /**
+     * @param tracing the tracing to set
+     */
+    @Override
+    public void setTracing(boolean tracing) {
+        this.tracing = tracing;
+    }
+    /**
+     * @param isGraphicMode the isGraphicMode to set
+     */
+    @Override
+    public void setIsGraphicMode(boolean isGraphicMode) {
+        this.isGraphicMode = isGraphicMode;
+    }
+// ========================================= GETTERS ==============================================
+    /**
+     * @return the tracing
+     */
+    public boolean isTracing() {
+        return tracing;
+    }
+    protected abstract String[] getTableLabels();
 }
