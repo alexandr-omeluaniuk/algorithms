@@ -18,6 +18,7 @@ package ss.algorithms.constants;
 
 import ss.algorithms.task.SortArrayTask;
 import ss.algorithms.core.Task;
+import ss.algorithms.task.SortCompare;
 
 /**
  * Realm task.
@@ -31,6 +32,12 @@ public enum RealmTask {
             new boolean[] {true, true, false, false},
             "Sort an array using a certain algorithm",
             SortArrayTask.class
+    ),
+    /** Compare sort algorithms. */
+    COMPARE_SORT_ALGORITHMS(new RealmTaskArg[] {RealmTaskArg.ARRAY_LENGTH},
+            new boolean[] {true},
+            "Compare sort algorithms",
+            SortCompare.class
     );
     /** Task arguments. */
     private final RealmTaskArg[] args;

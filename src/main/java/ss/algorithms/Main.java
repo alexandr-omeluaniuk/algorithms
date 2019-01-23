@@ -18,10 +18,12 @@ package ss.algorithms;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
 import ss.algorithms.core.Task;
+import ss.console.ConsoleTextDrawer;
 
 /**
  * Entry point.
@@ -91,7 +93,20 @@ public class Main {
                             }
                             index++;
                         }
+                        final int lineLength = 128;
+                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                                task.name(), Optional.of('-'), Optional.of(' ')));
+                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                                task.getDescription(), Optional.of('-'), Optional.of(' ')));
+                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+                        System.out.println("");
                         taskImpl.run(params);
+                        System.out.println("");
+                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
+                        System.out.println(ConsoleTextDrawer.lineTextInMiddle(lineLength,
+                                "COMPLETED", Optional.of('-'), Optional.of(' ')));
+                        System.out.println(ConsoleTextDrawer.line('#', lineLength));
                         return;
                     }
                 }

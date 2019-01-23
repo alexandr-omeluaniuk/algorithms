@@ -17,12 +17,14 @@
 package ss.algorithms.task;
 
 import java.util.Map;
+import java.util.Optional;
 import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTaskArg;
 import ss.algorithms.core.RandomGenerator;
 import ss.algorithms.core.Task;
 import ss.algorithms.realm.sorting.SortAlgorithm;
 import ss.algorithms.realm.sorting.SortStatistic;
+import ss.console.ConsoleTextDrawer;
 
 /**
  * Sort array task.
@@ -38,6 +40,8 @@ public class SortArrayTask implements Task {
         enableTracing = enableTracing == null ? Boolean.FALSE : enableTracing;
         isGraphicMode = isGraphicMode == null ? Boolean.FALSE : isGraphicMode;
         Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
+        System.out.println(ConsoleTextDrawer.lineTextInMiddle(128, algorithm.getDescription(),
+                Optional.of(' '), Optional.of(' ')));
         System.out.println("Source array:");
         outputArray(a);
         SortAlgorithm sortAlgorithm = (SortAlgorithm) algorithm.getImplementation()
