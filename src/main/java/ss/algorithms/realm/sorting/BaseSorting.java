@@ -84,7 +84,7 @@ public abstract class BaseSorting implements SortAlgorithm {
                     .append(isGraphicMode ? "" : i).append(SEPARATOR);
         }
         System.out.println(sb);
-        System.out.println("-".repeat(isGraphicMode ? labelsWidth + n : sb.length()));
+        System.out.println("-".repeat(isGraphicMode ? labelsWidth + n * 2 : sb.length()));
     }
     /**
      * Print intermediate array state.
@@ -119,8 +119,9 @@ public abstract class BaseSorting implements SortAlgorithm {
             Object value;
             if (isGraphicMode && max > 0) {
                 double tmp = Double.valueOf(a[k].toString()) / max;
-                int index = (int) Math.ceil(tmp * (SYMBOLS.length - 1) / max * 100);
-                value = String.valueOf(SYMBOLS[index - 1]);
+                Double tm2 = tmp * (SYMBOLS.length - 1) / max * 100;
+                int index = tm2.intValue();
+                value = String.valueOf(SYMBOLS[index]);
             } else {
                 value = a[k];
             }
