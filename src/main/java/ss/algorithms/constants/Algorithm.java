@@ -20,6 +20,7 @@ import ss.algorithms.realm.sorting.impl.SortInsertion;
 import ss.algorithms.realm.sorting.impl.SortSelection;
 import ss.algorithms.realm.sorting.SortAlgorithm;
 import ss.algorithms.realm.sorting.impl.SortMerge;
+import ss.algorithms.realm.sorting.impl.SortMergeReverse;
 import ss.algorithms.realm.sorting.impl.SortShell;
 
 /**
@@ -33,8 +34,10 @@ public enum Algorithm {
     SORT_INSERTION(Realm.SORTING, "Sort using insertion algorithm", SortInsertion.class),
     /** Sort using 'Shell' algorithm. */
     SORT_SHELL(Realm.SORTING, "Sort using 'Shell' algorithm", SortShell.class),
-    /** Sort using 'Shell' algorithm. */
-    SORT_MERGING(Realm.SORTING, "Sort with merging", SortMerge.class);
+    /** Sort with merging. */
+    SORT_MERGING(Realm.SORTING, "Sort with merging", SortMerge.class),
+    /** Sort with merging (reverse). */
+    SORT_MERGING_REVERSE(Realm.SORTING, "Sort with merging (reverse)", SortMergeReverse.class);
     /** Realm. */
     private final Realm realm;
     /** Description. */

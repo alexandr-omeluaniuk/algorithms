@@ -16,8 +16,6 @@
  */
 package ss.algorithms.realm.sorting;
 
-import java.util.Optional;
-
 /**
  * Sort algorithm.
  * @author ss
@@ -36,7 +34,7 @@ public interface SortAlgorithm {
      * @param statistic sort statistic.
      * @return true if v less than w.
      */
-    boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic);
+    boolean less(Comparable v, Comparable w, SortStatistic statistic);
     /**
      * Make items exchange into array.
      * @param a array of comparable items.
@@ -44,24 +42,13 @@ public interface SortAlgorithm {
      * @param j index of the second exchangeable item.
      * @param statistic sort statistic.
      */
-    void exchange(Comparable[] a, int i, int j, Optional<SortStatistic> statistic);
+    void exchange(Comparable[] a, int i, int j, SortStatistic statistic);
     /**
      * Check if an array is sorted properly.
      * @param a an array of comparable items.
      * @return true if it is sorted.
      */
     boolean isSorted(Comparable[] a);
-    /**
-     * Merge two sorted sub-arrays into one array.
-     * @param a two sorted sub-arrays.
-     * @param low the first sub-array start index.
-     * @param middle the second sub-array start index.
-     * @param high the second sub-array end index.
-     * @param aux auxiliary array, length must match with 'a' array.
-     * @param statistic sort statistic.
-     */
-    void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
-            Optional<SortStatistic> statistic);
     /**
      * Set tracing flag.
      * @param tracing tracing.

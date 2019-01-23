@@ -21,12 +21,12 @@ import ss.algorithms.realm.sorting.BaseSorting;
 import ss.algorithms.realm.sorting.SortStatistic;
 
 /**
- * Sort using merging.
+ * Sort with sub-arrays merging (reverse).
  * @author ss
  */
-public class SortMerge extends BaseSorting {
+public class SortMergeReverse extends BaseSorting {
     @Override
-    public String[] getTableLabels() {
+    protected String[] getTableLabels() {
         return new String[] {"low", "high"};
     }
     @Override
@@ -38,26 +38,13 @@ public class SortMerge extends BaseSorting {
             printTraceHead(n);
         }
         Comparable[] aux = new Comparable[n];
-        sortSubArray(a, 0, n - 1, aux, statistic);
-        return statistic;
-    }
-    /**
-     * Sort two sub arrays.
-     * @param a full array.
-     * @param low low full array index.
-     * @param high high full array index.
-     * @param aux auxiliary array for copy.
-     * @param statistic sort statistic.
-     */
-    private void sortSubArray(Comparable[] a, int low, int high, Comparable[] aux, 
-            SortStatistic statistic) {
-        if (high <= low) {
-            return;
+        for (int sz = 1; sz < n; sz = sz + sz) {
+            for (int low = 0; low < n - sz; low += sz + sz) {
+                merge(a, low, low + sz - 1, Math.min(low + sz + sz - 1, n - 1), aux,
+                        statistic);
+            }
         }
-        int middle = low + (high - low) / 2;
-        sortSubArray(a, low, middle, aux, statistic);
-        sortSubArray(a, middle + 1, high, aux, statistic);
-        merge(a, low, middle, high, aux, statistic);
+        return statistic;
     }
     /**
      * Merge two sorted sub-arrays into one array.

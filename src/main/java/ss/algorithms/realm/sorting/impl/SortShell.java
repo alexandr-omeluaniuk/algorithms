@@ -16,7 +16,6 @@
  */
 package ss.algorithms.realm.sorting.impl;
 
-import java.util.Optional;
 import java.util.function.Function;
 import ss.algorithms.realm.sorting.BaseSorting;
 import ss.algorithms.realm.sorting.SortStatistic;
@@ -34,7 +33,6 @@ public class SortShell extends BaseSorting {
     public SortStatistic sort(Comparable[] a) {
         int n = a.length;
         SortStatistic statistic = new SortStatistic();
-        Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (isTracing()) {
             printTraceHead(n);
         }
@@ -44,8 +42,8 @@ public class SortShell extends BaseSorting {
         }
         while (h >= 1) {
             for (int i = h; i < n; i++) {
-                for (int j = i; j >= h && less(a[j], a[j - h], optionalStatistic); j -= h) {
-                    exchange(a, j, j - h, optionalStatistic);
+                for (int j = i; j >= h && less(a[j], a[j - h], statistic); j -= h) {
+                    exchange(a, j, j - h, statistic);
                     if (isTracing()) {
                         final int index = j;
                         final int index2 = j - h;
@@ -57,7 +55,6 @@ public class SortShell extends BaseSorting {
             }
             h = h / 3;
         }
-        assert(isSorted(a));
         return statistic;
     }
 }

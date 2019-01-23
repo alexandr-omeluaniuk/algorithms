@@ -16,7 +16,6 @@
  */
 package ss.algorithms.realm.sorting;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -41,16 +40,16 @@ public abstract class BaseSorting implements SortAlgorithm {
     /** Trace table head labels. */
     protected String[] tableLabels;
     @Override
-    public boolean less(Comparable v, Comparable w, Optional<SortStatistic> statistic) {
-        if (statistic.isPresent()) {
-            statistic.get().incrementComparisons();
+    public boolean less(Comparable v, Comparable w, SortStatistic statistic) {
+        if (statistic != null) {
+            statistic.incrementComparisons();
         }
         return v.compareTo(w) < 0;
     }
     @Override
-    public void exchange(Comparable[] a, int i, int j, Optional<SortStatistic> statistic) {
-        if (statistic.isPresent()) {
-            statistic.get().incrementExchanges();
+    public void exchange(Comparable[] a, int i, int j, SortStatistic statistic) {
+        if (statistic != null) {
+            statistic.incrementExchanges();
         }
         Comparable t = a[i];
         a[i] = a[j];
@@ -59,35 +58,11 @@ public abstract class BaseSorting implements SortAlgorithm {
     @Override
     public boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++) {
-            if (less(a[i], a[i = 1], null)) {
+            if (less(a[i], a[i - 1], null)) {
                 return false;
             }
         }
         return true;
-    }
-    @Override
-    public void merge(Comparable[] a, int low, int middle, int high, Comparable[] aux,
-            Optional<SortStatistic> optionalStatistic) {
-        int i = low;
-        int j = middle + 1;
-        for (int k = low; k <= high; k++) {
-            aux[k] = a[k];
-        }
-        for (int k = low; k <= high; k++) {
-            if (i > middle) {
-                a[k] = aux[j++];
-            } else if (j > high) {
-                a[k] = aux[i++];
-            } else if (less(aux[j], aux[i], optionalStatistic)) {
-                a[k] = aux[j++];
-            } else {
-                a[k] = aux[i++];
-            }
-        }
-        if (isTracing()) {
-            Function<Integer, Boolean> func = (idx) -> idx >= low && idx <= high;
-            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func);
-        }
     }
 // ===================================== PROTECTED ================================================
     /**

@@ -16,8 +16,6 @@
  */
 package ss.console;
 
-import java.util.Optional;
-
 /**
  * Console drawer.
  * @author ss
@@ -40,21 +38,21 @@ public class ConsoleDrawer {
      * @param framing framing character.
      * @return line.
      */
-    public static String lineTextInMiddle(int length, String text, Optional<Character> filler,
-            Optional<Character> framing) {
+    public static String lineTextInMiddle(int length, String text, Character filler,
+            Character framing) {
         String result;
         if (text == null) {
             result = "NULL";
-        } else if (length + (framing.isPresent() ? 2 : 0) <= text.length()) {
+        } else if (length + (framing != null ? 2 : 0) <= text.length()) {
             result = text;
         } else {
-            double fillerLength = (length - text.length()) / 2 - (framing.isPresent() ? 2 : 0);
+            double fillerLength = (length - text.length()) / 2 - (framing != null ? 2 : 0);
             StringBuilder sb = new StringBuilder();
-            String fillChar = filler.isPresent() ? String.valueOf(filler.get()) : " ";
+            String fillChar = filler != null ? String.valueOf(filler) : " ";
             sb.append(fillChar.repeat(Math.toIntExact(Math.round(fillerLength))));
-            sb.append(framing.isPresent() ? framing.get() : "");
+            sb.append(framing != null ? framing : "");
             sb.append(text);
-            sb.append(framing.isPresent() ? framing.get() : "");
+            sb.append(framing != null ? framing : "");
             sb.append(fillChar.repeat(length - sb.length()));
             result = sb.toString();
         }

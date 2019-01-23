@@ -16,7 +16,6 @@
  */
 package ss.algorithms.core;
 
-import java.util.Optional;
 import ss.algorithms.constants.Realm;
 import ss.algorithms.constants.RealmTask;
 import ss.algorithms.constants.RealmTaskArg;
@@ -33,8 +32,7 @@ public class Help {
     public static void printHelp() {
         final int lineLength = 100;
         System.out.println(ConsoleDrawer.line('#', lineLength));
-        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength, "ALGORITHMS",
-                Optional.of('#'), Optional.of(' ')));
+        System.out.println(ConsoleDrawer.lineTextInMiddle(lineLength, "ALGORITHMS", '#', ' '));
         System.out.println(ConsoleDrawer.line('#', lineLength));
         System.out.println("");
         for (Realm realm : Realm.values()) {

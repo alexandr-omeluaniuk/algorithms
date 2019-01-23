@@ -16,7 +16,6 @@
  */
 package ss.algorithms.realm.sorting.impl;
 
-import java.util.Optional;
 import java.util.function.Function;
 import ss.algorithms.realm.sorting.BaseSorting;
 import ss.algorithms.realm.sorting.SortStatistic;
@@ -36,13 +35,12 @@ public class SortInsertion extends BaseSorting {
         SortStatistic statistic = new SortStatistic();
         statistic.setTheoreticalComparisons("avarage N^2/2, the best N-1, the worst N^2");
         statistic.setTheoreticalExchanges("average N^2/2, the best 0, the worst N^2");
-        Optional<SortStatistic> optionalStatistic = Optional.of(statistic);
         if (isTracing()) {
             printTraceHead(n);
         }
         for (int i = 1; i < n; i++) {
-            for (int j = i; j > 0 && less(a[j], a[j -1], optionalStatistic); j--) {
-                exchange(a, j, j-1, optionalStatistic);
+            for (int j = i; j > 0 && less(a[j], a[j -1], statistic); j--) {
+                exchange(a, j, j-1, statistic);
                 if (isTracing()) {
                     final int index = j;
                     final int index2 = j-1;
@@ -51,7 +49,6 @@ public class SortInsertion extends BaseSorting {
                 }
             }
         }
-        assert(isSorted(a));
         return statistic;
     }
 }

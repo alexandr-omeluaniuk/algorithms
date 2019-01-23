@@ -17,7 +17,6 @@
 package ss.algorithms.task;
 
 import java.util.Map;
-import java.util.Optional;
 import ss.algorithms.constants.Algorithm;
 import ss.algorithms.constants.RealmTaskArg;
 import ss.algorithms.core.RandomGenerator;
@@ -41,7 +40,7 @@ public class SortArrayTask implements Task {
         isGraphicMode = isGraphicMode == null ? Boolean.FALSE : isGraphicMode;
         Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
         System.out.println(ConsoleDrawer.lineTextInMiddle(128, algorithm.getDescription(),
-                Optional.of(' '), Optional.of(' ')));
+                ' ', ' '));
         System.out.println("Source array:");
         outputArray(a);
         SortAlgorithm sortAlgorithm = (SortAlgorithm) algorithm.getImplementation()
@@ -52,6 +51,9 @@ public class SortArrayTask implements Task {
         System.out.println("");
         System.out.println("Sorted array:");
         outputArray(a);
+        if (!sortAlgorithm.isSorted(a)) {
+            throw new RuntimeException("Array is not sorted!");
+        }
         System.out.println("");
         statistic.print();
     }
