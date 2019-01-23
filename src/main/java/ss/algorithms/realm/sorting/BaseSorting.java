@@ -26,7 +26,9 @@ public abstract class BaseSorting implements SortAlgorithm {
     /** Separator. */
     private static final String SEPARATOR = " ";
     /** Console color: green. */
-    private static final String CONSOLE_COLOR_GREEN = "\u001B[32m";
+    protected static final String CONSOLE_COLOR_GREEN = "\u001B[32m";
+    /** Console color: green. */
+    protected static final String CONSOLE_COLOR_RED = "\u001B[31m";
     /** Console color: nornal. */
     private static final String CONSOLE_COLOR_NORMAL = "\033[0m";
     /** Graphic symbols. */
@@ -94,9 +96,10 @@ public abstract class BaseSorting implements SortAlgorithm {
      * @param a array.
      * @param values values for the first 'info' columns, depends on header configuration.
      * @param highlightCondition highlight cell condition.
+     * @param color highlight color.
      */
     protected void printTraceState(Comparable[] a, String[] values,
-            Function<Integer, Boolean> highlightCondition) {
+            Function<Integer, Boolean> highlightCondition, String color) {
         int n = a.length;
         StringBuilder sb = new StringBuilder();
         int counter = 0;
@@ -133,7 +136,7 @@ public abstract class BaseSorting implements SortAlgorithm {
                 value = a[k];
             }
             sb.append(SEPARATOR.repeat(isGraphicMode ? width : width - a[k].toString().length()))
-                    .append(highlightCondition.apply(k) ? CONSOLE_COLOR_GREEN : "")
+                    .append(highlightCondition.apply(k) ? color : "")
                     .append(value)
                     .append(highlightCondition.apply(k) ? CONSOLE_COLOR_NORMAL : "")
                     .append(SEPARATOR);

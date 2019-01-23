@@ -50,7 +50,8 @@ public class SortSelection extends BaseSorting {
                 final int index = i;
                 final int index2 = min;
                 Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func);
+                printTraceState(a, new String[] {String.valueOf(i), String.valueOf(min)}, func,
+                        CONSOLE_COLOR_GREEN);
             }
         }
         return statistic;

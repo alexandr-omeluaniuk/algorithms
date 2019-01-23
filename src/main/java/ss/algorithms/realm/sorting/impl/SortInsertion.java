@@ -45,7 +45,8 @@ public class SortInsertion extends BaseSorting {
                     final int index = j;
                     final int index2 = j-1;
                     Function<Integer, Boolean> func = (k) -> k == index || k == index2;
-                    printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func);
+                    printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j)}, func,
+                            CONSOLE_COLOR_GREEN);
                 }
             }
         }

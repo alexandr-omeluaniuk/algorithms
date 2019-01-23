@@ -89,7 +89,8 @@ public class SortMerge extends BaseSorting {
         }
         if (isTracing()) {
             Function<Integer, Boolean> func = (idx) -> idx >= low && idx <= high;
-            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func);
+            printTraceState(a, new String[] {String.valueOf(low), String.valueOf(high)}, func,
+                    CONSOLE_COLOR_GREEN);
         }
     }
 }

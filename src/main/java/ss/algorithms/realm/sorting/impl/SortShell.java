@@ -49,7 +49,7 @@ public class SortShell extends BaseSorting {
                         final int index2 = j - h;
                         Function<Integer, Boolean> func = (k) -> k == index || k == index2;
                         printTraceState(a, new String[] {String.valueOf(i), String.valueOf(j),
-                            String.valueOf(h)}, func);
+                            String.valueOf(h)}, func, CONSOLE_COLOR_GREEN);
                     }
                 }
             }

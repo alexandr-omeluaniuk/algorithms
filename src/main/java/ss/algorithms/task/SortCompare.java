@@ -68,11 +68,13 @@ public class SortCompare implements Task {
             output[i] = row;
         }
         int currentColumn = 1;
+        Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
         for (Algorithm alg : sortAlgorithms.keySet()) {
-            long start = System.currentTimeMillis();
+            Comparable[] aCopy = new Comparable[a.length];
+            System.arraycopy(a, 0, aCopy, 0, a.length);
             SortAlgorithm sa = sortAlgorithms.get(alg);
-            Comparable[] a = RandomGenerator.randomArrayOfNumbers(arrayLength);
-            SortStatistic statistic = sa.sort(a);
+            long start = System.currentTimeMillis();
+            SortStatistic statistic = sa.sort(aCopy);
             long elapsedTime = System.currentTimeMillis() - start;
             long exchanges = statistic.getExchanges();
             long comparisons = statistic.getComparisons();
