@@ -16,6 +16,7 @@
  */
 package ss.algorithms.task;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import ss.algorithms.constants.Algorithm;
@@ -101,5 +102,10 @@ public class SortCompare implements Task {
             currentColumn++;
         }
         ConsoleDrawer.printTable(output);
+        Comparable[] aCopy = new Comparable[a.length];
+        System.arraycopy(a, 0, aCopy, 0, a.length);
+        long start = System.currentTimeMillis();
+        Arrays.sort(aCopy);
+        System.out.println("Native Java sort: " + (System.currentTimeMillis() - start));
     }
 }
